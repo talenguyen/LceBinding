@@ -14,26 +14,25 @@ jacoco {
   toolVersion = '0.7.5.201505241946'
 }
 
-def coverageSourceDirs = ['../app/src/main/java']
+def coverageSourceDirs = ['../lceebinding/src/main/java']
 
 task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
   group = "Reporting"
 
   description = "Generate Jacoco coverage reports"
 
-  classDirectories = fileTree(dir: '../app/build/intermediates/classes/prod',
+  classDirectories = fileTree(dir: '../lceebinding/build/intermediates/classes/debug',
       excludes: ['**/R.class',
                  '**/R$*.class',
+                 '**/BR.class',
                  '**/*$ViewInjector*.*',
                  '**/*$ViewBinder*.*',
                  '**/BuildConfig.*',
                  '**/Manifest*.*',
                  '**/*Adapter*.*',
-                 '**/*ApiClient*.*',
                  '**/**ViewHolder*.*',
                  '**/deprecated/**',
                  '**/view/**',
-                 '**/databinding/**',
                  '**/*$Lambda$*.*',
                  '**/*Module.*',
                  '**/*Dagger*.*',
@@ -42,7 +41,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
 
   additionalSourceDirs = files(coverageSourceDirs)
   sourceDirectories = files(coverageSourceDirs)
-  executionData = files('../app/build/jacoco/testDebugUnitTest.exec')
+  executionData = files('../lceebinding/build/jacoco/testDebugUnitTest.exec')
 
   reports {
     xml.enabled = true
