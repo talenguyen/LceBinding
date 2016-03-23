@@ -26,7 +26,7 @@ public class LceeViewModel {
   private boolean isContentShowing = false;
 
   public LceeViewModel(ErrorMessageProvider errorMessageProvider) {
-    this.showContentSubject = BehaviorRelay.<Boolean>create().toSerialized();
+    this.showContentSubject = BehaviorRelay.create(false).toSerialized();
     this.loadingSubject = BehaviorRelay.<Boolean>create().toSerialized();
     this.errorSubject = BehaviorRelay.<Boolean>create().toSerialized();
     this.emptySubject = BehaviorRelay.<Boolean>create().toSerialized();
@@ -75,7 +75,6 @@ public class LceeViewModel {
    */
   public void showLoading() {
     loadingSubject.call(true);
-    showContentSubject.call(false);
     errorSubject.call(false);
     emptySubject.call(false);
   }

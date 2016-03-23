@@ -67,15 +67,16 @@ public class LceeViewModelTest {
     lceeViewModel.hideContent();
     lceeViewModel.showContent();
     lceeViewModel.showContent();
-    testSubscriber.assertValues(true, false, true);
+    testSubscriber.assertValues(false, true, false, true);
   }
 
-  @Test public void testContent_showContentMultiple_shouldShowContentOnce() throws Exception {
+  @Test public void testContent_showContentMultiple_shouldShowContentTwo() throws Exception {
     final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
     lceeViewModel.isShowContent().subscribe(testSubscriber);
     lceeViewModel.showContent();
     lceeViewModel.showContent();
-    testSubscriber.assertValue(true);
+    lceeViewModel.showContent();
+    testSubscriber.assertValues(false, true); // The first false is initialize value.
   }
 
   @Test public void testContent_showContent_shouldHideLoading() throws Exception {
