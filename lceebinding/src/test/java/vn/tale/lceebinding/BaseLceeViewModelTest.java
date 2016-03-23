@@ -114,8 +114,8 @@ public class BaseLceeViewModelTest {
   @Test public void testStar_emptyButContentShowing_shouldShowContent() throws Exception {
     // Verify
     final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
-    baseLceeViewModel.showContent();
     baseLceeViewModel.isShowContent().subscribe(testSubscriber);
+    baseLceeViewModel.showContent();
     baseLceeViewModel.start(EMPTY_STREAM).subscribe(createNoOpSubscriber());
     testSubscriber.assertValues(false, true); // The first false is initial value.
   }

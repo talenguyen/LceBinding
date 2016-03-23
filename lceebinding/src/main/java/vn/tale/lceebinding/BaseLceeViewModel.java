@@ -47,6 +47,9 @@ public class BaseLceeViewModel<T> extends BindableLceeViewModel {
         .doOnCompleted(new Action0() {
           @Override public void call() {
             hideLoading();
+            if (!getError().get() && !getContent().get()) {
+              showEmpty();
+            }
           }
         });
   }
