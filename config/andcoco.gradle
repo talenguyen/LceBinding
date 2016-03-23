@@ -8,6 +8,7 @@ android.testOptions.unitTests.all {
 }
 
 apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
 
 jacoco {
   // See https://github.com/jacoco/jacoco/releases
@@ -48,9 +49,4 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
     xml.enabled = true
     html.enabled = true
   }
-}
-
-// Fix for: No report file available: [/home/travis/build/open-keychain/open-keychain/OpenKeychain/build/reports/cobertura/coverage.xml, /home/travis/build/open-keychain/open-keychain/OpenKeychain/build/reports/jacoco/test/jacocoTestReport.xml]
-coveralls {
-  jacocoReportPath 'build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml'
 }
