@@ -33,6 +33,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
                  '**/**ViewHolder*.*',
                  '**/deprecated/**',
                  '**/view/**',
+                 '**/databinding/**',
                  '**/*$Lambda$*.*',
                  '**/*Module.*',
                  '**/*Dagger*.*',
@@ -46,7 +47,5 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
   reports {
     xml.enabled = true
     html.enabled = true
-    xml.destination = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
-    html.destination = "${buildDir}/reports/jacoco/test/html"
   }
 }
