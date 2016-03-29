@@ -1,10 +1,10 @@
 /**
- * RxRepository
+ * LceBinding
  * <p/>
  * Created by Giang Nguyen on 2/27/16.
  */
 
-package vn.tale.lceebinding;
+package vn.tale.lcebinding;
 
 import rx.Observable;
 import rx.functions.Action0;
@@ -15,7 +15,7 @@ import rx.functions.Action1;
  *
  * @param <T> expected model type
  */
-public class BaseLceeViewModel<T> extends BindableLceeViewModel {
+public class BaseLce<T> extends BindableLce {
   private final ThreadScheduler threadScheduler;
 
   /**
@@ -24,8 +24,8 @@ public class BaseLceeViewModel<T> extends BindableLceeViewModel {
    * @param errorMessageProvider message provider.
    * @param threadScheduler thread scheduler which will be use to subscribe/observe
    */
-  public BaseLceeViewModel(ErrorMessageProvider errorMessageProvider,
-      ThreadScheduler threadScheduler) {
+  public BaseLce(ErrorMessageProvider errorMessageProvider,
+                 ThreadScheduler threadScheduler) {
     super(errorMessageProvider);
     this.threadScheduler = threadScheduler;
   }
@@ -47,9 +47,6 @@ public class BaseLceeViewModel<T> extends BindableLceeViewModel {
         .doOnCompleted(new Action0() {
           @Override public void call() {
             hideLoading();
-            if (!getError().get() && !getContent().get()) {
-              showEmpty();
-            }
           }
         });
   }

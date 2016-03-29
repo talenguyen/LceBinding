@@ -1,4 +1,4 @@
-package vn.tale.lceebinding;
+package vn.tale.lcebinding;
 
 import android.support.annotation.NonNull;
 import org.junit.Before;
@@ -14,26 +14,28 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 /**
- * RxRepository
+ * LceBinding
  * <p/>
  * Created by Giang Nguyen on 2/27/16.
  */
-public class BaseLceeViewModelTest {
+public class BaseLceTest {
   public static final Object OBJECT = new Object();
   public static final Observable<Object> ERROR_STREAM =
       Observable.error(new RuntimeException("Error"));
   public static final Observable<Object> EMPTY_STREAM = Observable.empty();
   private static final Observable<Object> SUCCESS_STREAM = Observable.just(OBJECT);
-  @Mock ThreadScheduler threadScheduler;
-  @Mock ErrorMessageProvider errorMessageProvider;
-  private BaseLceeViewModel<Object> baseLceeViewModel;
+  @Mock
+  ThreadScheduler threadScheduler;
+  @Mock
+  ErrorMessageProvider errorMessageProvider;
+  private BaseLce<Object> baseLceeViewModel;
 
   @Before public void setUp() throws Exception {
     MockitoAnnotations.initMocks(this);
 
     when(threadScheduler.subscribeOn()).thenReturn(Schedulers.immediate());
     when(threadScheduler.observeOn()).thenReturn(Schedulers.immediate());
-    baseLceeViewModel = new BaseLceeViewModel<>(errorMessageProvider, threadScheduler);
+    baseLceeViewModel = new BaseLce<>(errorMessageProvider, threadScheduler);
   }
 
   @Test public void testStar_success_shouldShowThenHideLoading() throws Exception {
@@ -91,23 +93,6 @@ public class BaseLceeViewModelTest {
     baseLceeViewModel.isError().subscribe(testSubscriber);
     baseLceeViewModel.showContent();
     baseLceeViewModel.start(ERROR_STREAM).subscribe(createNoOpSubscriber());
-    testSubscriber.assertValues(false); // The false when show loading.
-  }
-
-  @Test public void testStar_empty_shouldShowEmpty() throws Exception {
-    // Verify
-    final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
-    baseLceeViewModel.isEmpty().subscribe(testSubscriber);
-    baseLceeViewModel.start(EMPTY_STREAM).subscribe(createNoOpSubscriber());
-    testSubscriber.assertValues(false, true); // The false when show loading.
-  }
-
-  @Test public void testStar_emptyButContentShowing_shouldNotShowEmpty() throws Exception {
-    // Verify
-    final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
-    baseLceeViewModel.isEmpty().subscribe(testSubscriber);
-    baseLceeViewModel.showContent();
-    baseLceeViewModel.start(EMPTY_STREAM).subscribe(createNoOpSubscriber());
     testSubscriber.assertValues(false); // The false when show loading.
   }
 

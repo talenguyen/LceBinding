@@ -1,10 +1,10 @@
 /**
- * RxRepository
+ * LceBinding
  * <p/>
  * Created by Giang Nguyen on 2/27/16.
  */
 
-package vn.tale.lceebinding;
+package vn.tale.lcebinding;
 
 import rx.Scheduler;
 

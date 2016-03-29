@@ -1,57 +1,51 @@
 /**
- * RxRepository
+ * LceBinding
  * <p/>
  * Created by Giang Nguyen on 3/2/16.
  */
 
-package vn.tale.lceebinding;
+package vn.tale.lcebinding;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import rx.functions.Action1;
 
 /**
- * Base Loading-Content-Error-Empty pattern for bind-able in Data Binding.
+ * Base Loading-Content-Error pattern for bind-able in Data Binding.
  */
-public class BindableLceeViewModel extends LceeViewModel {
+public class BindableLce extends Lce {
 
   private final ObservableBoolean loading = new ObservableBoolean();
   private final ObservableBoolean content = new ObservableBoolean();
-  private final ObservableBoolean empty = new ObservableBoolean();
   private final ObservableBoolean error = new ObservableBoolean();
   private final ObservableField<String> errorMessage = new ObservableField<>();
   private final ObservableField<String> lightError = new ObservableField<>();
 
-  public BindableLceeViewModel(ErrorMessageProvider errorMessageProvider) {
+  public BindableLce(ErrorMessageProvider errorMessageProvider) {
     super(errorMessageProvider);
     isLoading().subscribe(new Action1<Boolean>() {
       @Override public void call(Boolean loading) {
-        BindableLceeViewModel.this.loading.set(loading);
+        BindableLce.this.loading.set(loading);
       }
     });
     isShowContent().subscribe(new Action1<Boolean>() {
       @Override public void call(Boolean content) {
-        BindableLceeViewModel.this.content.set(content);
-      }
-    });
-    isEmpty().subscribe(new Action1<Boolean>() {
-      @Override public void call(Boolean empty) {
-        BindableLceeViewModel.this.empty.set(empty);
+        BindableLce.this.content.set(content);
       }
     });
     isError().subscribe(new Action1<Boolean>() {
       @Override public void call(Boolean error) {
-        BindableLceeViewModel.this.error.set(error);
+        BindableLce.this.error.set(error);
       }
     });
     errorMessage().subscribe(new Action1<String>() {
       @Override public void call(String message) {
-        BindableLceeViewModel.this.errorMessage.set(message);
+        BindableLce.this.errorMessage.set(message);
       }
     });
     lightError().subscribe(new Action1<String>() {
       @Override public void call(String message) {
-        BindableLceeViewModel.this.lightError.set(message);
+        BindableLce.this.lightError.set(message);
       }
     });
   }
@@ -62,10 +56,6 @@ public class BindableLceeViewModel extends LceeViewModel {
 
   public ObservableBoolean getContent() {
     return content;
-  }
-
-  public ObservableBoolean getEmpty() {
-    return empty;
   }
 
   public ObservableBoolean getError() {

@@ -1,1 +1,1 @@
-include ':app', ':lceebinding'
+include ':app', ':lcebinding'

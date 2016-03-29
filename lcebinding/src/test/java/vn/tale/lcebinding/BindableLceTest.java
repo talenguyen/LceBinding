@@ -1,4 +1,4 @@
-package vn.tale.lceebinding;
+package vn.tale.lcebinding;
 
 import junit.framework.Assert;
 import org.junit.Before;
@@ -6,17 +6,17 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * RxRepository
+ * LceBinding
  * Created by Giang Nguyen on 3/2/16.
  */
-public class BindableLceeViewModelTest {
+public class BindableLceTest {
 
-  private BindableLceeViewModel bindableLceeViewModel;
+  private BindableLce bindableLceeViewModel;
   private ErrorMessageProvider errorMessageProvider;
 
   @Before public void setUp() throws Exception {
     errorMessageProvider = Mockito.mock(ErrorMessageProvider.class);
-    bindableLceeViewModel = new BindableLceeViewModel(errorMessageProvider);
+    bindableLceeViewModel = new BindableLce(errorMessageProvider);
   }
 
   @Test public void testLoadingField_showLoading_shouldBeTrue() throws Exception {
@@ -37,16 +37,6 @@ public class BindableLceeViewModelTest {
   @Test public void testContentField_hideContent_shouldBeFalse() throws Exception {
     bindableLceeViewModel.hideContent();
     Assert.assertFalse(bindableLceeViewModel.getContent().get());
-  }
-
-  @Test public void testEmptyField_showEmpty_shouldBeTrue() throws Exception {
-    bindableLceeViewModel.showEmpty();
-    Assert.assertTrue(bindableLceeViewModel.getEmpty().get());
-  }
-
-  @Test public void testEmptyField_hideEmpty_shouldBeFalse() throws Exception {
-    bindableLceeViewModel.hideEmpty();
-    Assert.assertFalse(bindableLceeViewModel.getEmpty().get());
   }
 
   @Test public void testErrorField_showErrorWhenContentIsNotShowing_shouldShowError()

@@ -1,10 +1,10 @@
 /**
- * RxRepository
+ * LceBinding
  * <p/>
  * Created by Giang Nguyen on 3/1/16.
  */
 
-package vn.tale.lceebinding;
+package vn.tale.lcebinding;
 
 import com.jakewharton.rxrelay.BehaviorRelay;
 import com.jakewharton.rxrelay.SerializedRelay;
@@ -12,24 +12,22 @@ import rx.Observable;
 import rx.functions.Action1;
 
 /**
- * Base view model class which will handle to display Loading-Content-Error-Empty.
+ * Base view model class which will handle to display Loading-Content-Error.
  */
-public class LceeViewModel {
+public class Lce {
 
   private final SerializedRelay<Boolean, Boolean> showContentSubject;
   private final SerializedRelay<Boolean, Boolean> loadingSubject;
   private final SerializedRelay<Boolean, Boolean> errorSubject;
-  private final SerializedRelay<Boolean, Boolean> emptySubject;
   private final SerializedRelay<String, String> lightErrorSubject;
   private final SerializedRelay<String, String> errorMessageSubject;
   private final ErrorMessageProvider errorMessageProvider;
   private boolean isContentShowing = false;
 
-  public LceeViewModel(ErrorMessageProvider errorMessageProvider) {
+  public Lce(ErrorMessageProvider errorMessageProvider) {
     this.showContentSubject = BehaviorRelay.create(false).toSerialized();
     this.loadingSubject = BehaviorRelay.<Boolean>create().toSerialized();
     this.errorSubject = BehaviorRelay.<Boolean>create().toSerialized();
-    this.emptySubject = BehaviorRelay.<Boolean>create().toSerialized();
     this.lightErrorSubject = BehaviorRelay.<String>create().toSerialized();
     this.errorMessageSubject = BehaviorRelay.<String>create().toSerialized();
     this.errorMessageProvider = errorMessageProvider;
@@ -40,9 +38,6 @@ public class LceeViewModel {
     });
   }
 
-  //////
-  // Getter
-  //////
   public Observable<Boolean> isShowContent() {
     return showContentSubject.asObservable().distinctUntilChanged();
   }
@@ -55,10 +50,6 @@ public class LceeViewModel {
     return errorSubject.asObservable().distinctUntilChanged();
   }
 
-  public Observable<Boolean> isEmpty() {
-    return emptySubject.asObservable().distinctUntilChanged();
-  }
-
   public Observable<String> lightError() {
     return lightErrorSubject.asObservable();
   }
@@ -66,9 +57,6 @@ public class LceeViewModel {
   public Observable<String> errorMessage() {
     return errorMessageSubject.asObservable();
   }
-  //////
-  // Public methods.
-  //////
 
   /**
    * Call to enable loading mode.
@@ -76,7 +64,6 @@ public class LceeViewModel {
   public void showLoading() {
     loadingSubject.call(true);
     errorSubject.call(false);
-    emptySubject.call(false);
   }
 
   /**
@@ -90,29 +77,16 @@ public class LceeViewModel {
     showContentSubject.call(true);
     loadingSubject.call(false);
     errorSubject.call(false);
-    emptySubject.call(false);
   }
 
   public void hideContent() {
     showContentSubject.call(false);
   }
 
-  public void showEmpty() {
-    emptySubject.call(true);
-    loadingSubject.call(false);
-    errorSubject.call(false);
-    showContentSubject.call(false);
-  }
-
-  public void hideEmpty() {
-    emptySubject.call(false);
-  }
-
   public void showError(Throwable throwable) {
     showContentSubject.call(isContentShowing);
     errorSubject.call(!isContentShowing);
     loadingSubject.call(false);
-    emptySubject.call(false);
     if (isContentShowing) {
       final String message = errorMessageProvider.getLightErrorMessage(throwable);
       lightErrorSubject.call(message);
