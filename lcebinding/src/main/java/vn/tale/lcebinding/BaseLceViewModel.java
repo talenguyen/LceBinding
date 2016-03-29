@@ -15,7 +15,7 @@ import rx.functions.Action1;
  *
  * @param <T> expected model type
  */
-public class BaseLce<T> extends BindableLce {
+public class BaseLceViewModel<T> extends BindableLce {
   private final ThreadScheduler threadScheduler;
 
   /**
@@ -24,8 +24,8 @@ public class BaseLce<T> extends BindableLce {
    * @param errorMessageProvider message provider.
    * @param threadScheduler thread scheduler which will be use to subscribe/observe
    */
-  public BaseLce(ErrorMessageProvider errorMessageProvider,
-                 ThreadScheduler threadScheduler) {
+  public BaseLceViewModel(ErrorMessageProvider errorMessageProvider,
+      ThreadScheduler threadScheduler) {
     super(errorMessageProvider);
     this.threadScheduler = threadScheduler;
   }
