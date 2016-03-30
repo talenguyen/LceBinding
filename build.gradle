@@ -36,7 +36,7 @@ task clean(type: Delete) {
 ext.preDexLibs = !project.hasProperty('disablePreDex')
 
 ext {
-  applicationId = "vn.tale.lceebindingexample"
+  applicationId = "vn.tale.lcebindingexample"
   compileSdkVersion = 23
   buildToolsVersion = "23.0.2"
   minSdkVersion = 15

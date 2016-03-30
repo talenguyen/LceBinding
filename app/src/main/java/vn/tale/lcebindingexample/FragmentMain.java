@@ -1,4 +1,4 @@
-package vn.tale.lceebindingexample;
+package vn.tale.lcebindingexample;
 
 import android.support.v4.app.Fragment;
 

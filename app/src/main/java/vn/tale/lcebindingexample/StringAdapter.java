@@ -5,7 +5,7 @@
  * Copyright (c) 2015 Tale. All rights reserved.
  */
 
-package vn.tale.lceebindingexample;
+package vn.tale.lcebindingexample;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
