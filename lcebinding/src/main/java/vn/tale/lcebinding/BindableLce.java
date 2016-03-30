@@ -13,7 +13,7 @@ import rx.functions.Action1;
 /**
  * Base Loading-Content-Error pattern for bind-able in Data Binding.
  */
-public class BindableLce extends Lce {
+public class BindableLce extends LoadingContentError {
 
   private final ObservableBoolean loading = new ObservableBoolean();
   private final ObservableBoolean content = new ObservableBoolean();

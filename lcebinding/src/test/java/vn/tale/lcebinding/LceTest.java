@@ -12,12 +12,12 @@ import rx.observers.TestSubscriber;
  */
 public class LceTest {
 
-  private Lce lce;
+  private LoadingContentError lce;
   private ErrorMessageProvider errorMessageProvider;
 
   @Before public void setUp() throws Exception {
     errorMessageProvider = Mockito.mock(ErrorMessageProvider.class);
-    lce = new Lce(errorMessageProvider);
+    lce = new LoadingContentError(errorMessageProvider);
   }
 
   @Test public void testLoading_showHideLoading_shouldOnlyReceiveChanges() throws Exception {

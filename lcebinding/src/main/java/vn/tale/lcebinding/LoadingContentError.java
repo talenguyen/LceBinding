@@ -14,7 +14,7 @@ import rx.functions.Action1;
 /**
  * Base view model class which will handle to display Loading-Content-Error.
  */
-public class Lce {
+public class LoadingContentError {
 
   private final SerializedRelay<Boolean, Boolean> showContentSubject;
   private final SerializedRelay<Boolean, Boolean> loadingSubject;
@@ -24,7 +24,7 @@ public class Lce {
   private final ErrorMessageProvider errorMessageProvider;
   private boolean isContentShowing = false;
 
-  public Lce(ErrorMessageProvider errorMessageProvider) {
+  public LoadingContentError(ErrorMessageProvider errorMessageProvider) {
     this.showContentSubject = BehaviorRelay.create(false).toSerialized();
     this.loadingSubject = BehaviorRelay.<Boolean>create().toSerialized();
     this.errorSubject = BehaviorRelay.<Boolean>create().toSerialized();
