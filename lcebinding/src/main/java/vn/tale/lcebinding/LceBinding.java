@@ -4,39 +4,52 @@ import android.support.annotation.NonNull;
 import rx.Observable;
 import rx.Subscription;
 import rx.functions.Action1;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Author giangnguyen. Created on 4/1/16.
  */
 public class LceBinding {
+
+  private CompositeSubscription subscriptions;
+
   public void bind(@NonNull LoadingContentError loadingContentError,
-      @NonNull final ShowHideView loadingView, @NonNull ShowHideView contentView,
+      @NonNull ShowHideView loadingView,
+      @NonNull ShowHideView contentView,
       @NonNull final ErrorView errorView) {
 
-    bindShowHide(loadingContentError.isLoading(), loadingView);
+    subscriptions = new CompositeSubscription();
 
-    bindShowHide(loadingContentError.isShowContent(), contentView);
+    final Subscription loadingSubscription = bindShowHide(loadingContentError.isLoading(), loadingView);
+    subscriptions.add(loadingSubscription);
 
-    bindShowHide(loadingContentError.isError(), errorView);
+    final Subscription contentSubscription = bindShowHide(loadingContentError.isShowContent(), contentView);
+    subscriptions.add(contentSubscription);
 
-    bindError(loadingContentError, errorView);
+    final Subscription errorShowHideSubscription = bindShowHide(loadingContentError.isError(),
+        errorView);
+    subscriptions.add(errorShowHideSubscription);
 
-  }
-
-  private void bindError(LoadingContentError loadingContentError, final ErrorView errorView) {
-    loadingContentError.errorMessage()
-        .subscribe(new Action1<String>() {
+    final Subscription errorMsgSubscription =
+        bindMessage(loadingContentError.errorMessage(), new Action1<String>() {
           @Override public void call(String msg) {
             errorView.setError(msg);
           }
         });
+    subscriptions.add(errorMsgSubscription);
 
-    loadingContentError.lightError()
-        .subscribe(new Action1<String>() {
-          @Override public void call(String msg) {
-            errorView.setLightError(msg);
-          }
-        });
+  }
+
+  public void unbind() {
+    if (subscriptions != null) {
+      subscriptions.unsubscribe();
+      subscriptions.clear();
+      subscriptions = null;
+    }
+  }
+
+  private Subscription bindMessage(Observable<String> msgStream, Action1<String> action1) {
+    return msgStream.subscribe(action1);
   }
 
   private Subscription bindShowHide(@NonNull Observable<Boolean> showHideStream,

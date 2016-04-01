@@ -48,7 +48,7 @@ public class LceBindingTest {
     verify(contentView).show();
 
     lce.hideContent();
-    verify(contentView, times(2)).hide(); // 2 because the initial state of content is hide.
+    verify(contentView).hide();
   }
 
   @Test public void testBind_showHideError() throws Exception {
@@ -65,16 +65,36 @@ public class LceBindingTest {
     verify(errorView).hide();
   }
 
-  @Test public void testBind_showHideLightError() throws Exception {
+  @Test public void testUnbind_showNotReceiveLoadingEvent() throws Exception {
     lceBinding.bind(lce, loadingView, contentView, errorView);
+    lceBinding.unbind();
 
-    String expectedError = "Expected error";
-    when(errorMessageProvider.getLightErrorMessage(any(Throwable.class))).thenReturn(expectedError);
+    lce.showLoading();
+    verify(loadingView, never()).show();
+
+    lce.hideLoading();
+    verify(loadingView, never()).hide();
+  }
+
+  @Test public void testUnbind_showNotReceiveContentEvent() throws Exception {
+    lceBinding.bind(lce, loadingView, contentView, errorView);
+    lceBinding.unbind();
 
     lce.showContent();
+    verify(contentView, never()).show();
+
+    lce.hideContent();
+    verify(contentView, never()).hide();
+  }
+
+  @Test public void testUnbind_showNotReceiveErrorEvent() throws Exception {
+    lceBinding.bind(lce, loadingView, contentView, errorView);
+    lceBinding.unbind();
+
     lce.showError(new RuntimeException());
     verify(errorView, never()).show();
-    verify(errorView, never()).setError(anyString());
-    verify(errorView).setLightError(expectedError);
+
+    lce.hideError();
+    verify(errorView, never()).hide();
   }
 }
