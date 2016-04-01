@@ -9,7 +9,6 @@ package vn.tale.lcebinding;
 import com.jakewharton.rxrelay.BehaviorRelay;
 import com.jakewharton.rxrelay.SerializedRelay;
 import rx.Observable;
-import rx.functions.Action1;
 
 /**
  * Base view model class which will handle to display Loading-Content-Error.

@@ -3,6 +3,7 @@ package vn.tale.lcebinding;
 import android.support.annotation.NonNull;
 import rx.Observable;
 import rx.Subscription;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
@@ -12,26 +13,30 @@ import rx.subscriptions.CompositeSubscription;
 public class LceBinding {
 
   private CompositeSubscription subscriptions;
+  private LoadingContentError lce;
 
-  public void bind(@NonNull LoadingContentError loadingContentError,
-      @NonNull ShowHideView loadingView,
+  public LceBinding(LoadingContentError lce) {
+    this.lce = lce;
+  }
+
+  public void bind(@NonNull ShowHideView loadingView,
       @NonNull ShowHideView contentView,
       @NonNull final ErrorView errorView) {
 
     subscriptions = new CompositeSubscription();
 
-    final Subscription loadingSubscription = bindShowHide(loadingContentError.isLoading(), loadingView);
+    final Subscription loadingSubscription = bindShowHide(lce.isLoading(), loadingView);
     subscriptions.add(loadingSubscription);
 
-    final Subscription contentSubscription = bindShowHide(loadingContentError.isShowContent(), contentView);
+    final Subscription contentSubscription = bindShowHide(lce.isShowContent(), contentView);
     subscriptions.add(contentSubscription);
 
-    final Subscription errorShowHideSubscription = bindShowHide(loadingContentError.isError(),
+    final Subscription errorShowHideSubscription = bindShowHide(lce.isError(),
         errorView);
     subscriptions.add(errorShowHideSubscription);
 
-    final Subscription errorMsgSubscription =
-        bindMessage(loadingContentError.errorMessage(), new Action1<String>() {
+    final Subscription errorMsgSubscription = bindMessage(lce.errorMessage(),
+        new Action1<String>() {
           @Override public void call(String msg) {
             errorView.setError(msg);
           }
@@ -46,6 +51,31 @@ public class LceBinding {
       subscriptions.clear();
       subscriptions = null;
     }
+  }
+
+  public <T> Observable<T> createLceStream(Observable<T> target, ThreadScheduler threadScheduler) {
+    return target.subscribeOn(threadScheduler.subscribeOn())
+        .observeOn(threadScheduler.observeOn())
+        .doOnSubscribe(new Action0() {
+          @Override public void call() {
+            lce.showLoading();
+          }
+        })
+        .doOnNext(new Action1<T>() {
+          @Override public void call(T ts) {
+            lce.showContent();
+          }
+        })
+        .doOnError(new Action1<Throwable>() {
+          @Override public void call(Throwable throwable) {
+            lce.showError(throwable);
+          }
+        })
+        .doOnCompleted(new Action0() {
+          @Override public void call() {
+            lce.hideLoading();
+          }
+        });
   }
 
   private Subscription bindMessage(Observable<String> msgStream, Action1<String> action1) {

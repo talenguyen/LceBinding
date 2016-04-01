@@ -5,6 +5,4 @@ package vn.tale.lcebinding;
  */
 public interface ErrorView extends ShowHideView {
   void setError(String error);
-
-  void setLightError(String lightError);
 }
