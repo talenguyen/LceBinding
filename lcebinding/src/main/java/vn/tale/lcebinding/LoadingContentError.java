@@ -25,7 +25,7 @@ public class LoadingContentError {
   private boolean isContentShowing = false;
 
   public LoadingContentError(ErrorMessageProvider errorMessageProvider) {
-    this.showContentSubject = BehaviorRelay.create(false).toSerialized();
+    this.showContentSubject = BehaviorRelay.create(isContentShowing).toSerialized();
     this.loadingSubject = BehaviorRelay.<Boolean>create().toSerialized();
     this.errorSubject = BehaviorRelay.<Boolean>create().toSerialized();
     this.lightErrorSubject = BehaviorRelay.<String>create().toSerialized();
