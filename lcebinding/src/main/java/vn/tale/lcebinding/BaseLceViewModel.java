@@ -11,7 +11,7 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 
 /**
- * Base View Model to handle Loading - Content - Error - Empty pattern when start content from api.
+ * Base View Model to handle Loading - Content - Error pattern when start content from api.
  *
  * @param <T> expected model type
  */

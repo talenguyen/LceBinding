@@ -45,13 +45,6 @@ public class LceTest {
     testSubscriber.assertValue(false);
   }
 
-  @Test public void testLoading_showLoading_shouldNotShowLightError() throws Exception {
-    final TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-    lce.lightError().subscribe(testSubscriber);
-    lce.showLoading();
-    testSubscriber.assertNoValues();
-  }
-
   @Test public void testContent_showHideContent_shouldOnlyReceiveChanges() throws Exception {
     final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
     lce.isShowContent().subscribe(testSubscriber);
@@ -60,7 +53,7 @@ public class LceTest {
     lce.hideContent();
     lce.showContent();
     lce.showContent();
-    testSubscriber.assertValues(false, true, false, true);
+    testSubscriber.assertValues(true, false, true);
   }
 
   @Test public void testContent_showContentMultiple_shouldShowContentTwo() throws Exception {
@@ -69,7 +62,7 @@ public class LceTest {
     lce.showContent();
     lce.showContent();
     lce.showContent();
-    testSubscriber.assertValues(false, true); // The first false is initialize value.
+    testSubscriber.assertValues(true);
   }
 
   @Test public void testContent_showContent_shouldHideLoading() throws Exception {
@@ -84,13 +77,6 @@ public class LceTest {
     lce.isError().subscribe(testSubscriber);
     lce.showContent();
     testSubscriber.assertValue(false);
-  }
-
-  @Test public void testContent_showContent_shouldNotShowLightError() throws Exception {
-    final TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-    lce.lightError().subscribe(testSubscriber);
-    lce.showContent();
-    testSubscriber.assertNoValues();
   }
 
   @Test public void testContent_showContent_shouldNotShowErrorMessage() throws Exception {
@@ -125,14 +111,14 @@ public class LceTest {
     testSubscriber.assertValue(false);
   }
 
-  @Test public void testError_showErrorWhenContentIsNotShowing_shouldShowError() throws Exception {
+  @Test public void testError_showError_shouldShowError() throws Exception {
     final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
     lce.isError().subscribe(testSubscriber);
     lce.showError(new RuntimeException());
     testSubscriber.assertValue(true);
   }
 
-  @Test public void testError_showErrorWhenContentIsNotShowing_shouldShowErrorMessage()
+  @Test public void testError_showError_shouldShowErrorMessage()
       throws Exception {
     final String expectedErrorMessage = "Expected error message";
     Mockito.when(errorMessageProvider.getErrorMessage(Mockito.any(Throwable.class)))
@@ -143,7 +129,7 @@ public class LceTest {
     testSubscriber.assertValue(expectedErrorMessage);
   }
 
-  @Test public void testError_showErrorWhenContentIsNotShowing_shouldHideContent()
+  @Test public void testError_showError_shouldHideContent()
       throws Exception {
     final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
     lce.isShowContent().subscribe(testSubscriber);
@@ -151,32 +137,4 @@ public class LceTest {
     testSubscriber.assertValue(false);
   }
 
-  @Test public void testError_showErrorWhenContentIsShowing_shouldNotShowError() throws Exception {
-    lce.showContent();
-    final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
-    lce.isError().subscribe(testSubscriber);
-    lce.showError(new RuntimeException());
-    testSubscriber.assertValues(false);
-  }
-
-  @Test public void testError_showErrorWhenContentIsShowing_shouldNotHideContent()
-      throws Exception {
-    lce.showContent();
-    final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
-    lce.isShowContent().subscribe(testSubscriber);
-    lce.showError(new RuntimeException());
-    testSubscriber.assertValues(true);
-  }
-
-  @Test public void testError_showErrorWhenContentIsShowing_shouldShowLightError()
-      throws Exception {
-    lce.showContent();
-    final String expectedLightErrorMessage = "Expected light error";
-    Mockito.when(errorMessageProvider.getLightErrorMessage(Mockito.any(Throwable.class)))
-        .thenReturn(expectedLightErrorMessage);
-    final TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-    lce.lightError().subscribe(testSubscriber);
-    lce.showError(new RuntimeException());
-    testSubscriber.assertValues(expectedLightErrorMessage);
-  }
 }

@@ -38,7 +38,7 @@ public class BaseLceViewModelTest {
     baseLceeViewModelViewModel = new BaseLceViewModel<>(errorMessageProvider, threadScheduler);
   }
 
-  @Test public void testStar_success_shouldShowThenHideLoading() throws Exception {
+  @Test public void testStart_success_shouldShowThenHideLoading() throws Exception {
     // Verify
     final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
     baseLceeViewModelViewModel.isLoading().subscribe(testSubscriber);
@@ -46,15 +46,15 @@ public class BaseLceViewModelTest {
     testSubscriber.assertValues(true, false);
   }
 
-  @Test public void testStar_success_shouldShowContent() throws Exception {
+  @Test public void testStart_success_shouldShowContent() throws Exception {
     // Verify
     final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
     baseLceeViewModelViewModel.isShowContent().subscribe(testSubscriber);
     baseLceeViewModelViewModel.start(SUCCESS_STREAM).subscribe();
-    testSubscriber.assertValues(false, true); // The false is for loading.
+    testSubscriber.assertValues(false, true);
   }
 
-  @Test public void testStar_success_shouldNotShowError() throws Exception {
+  @Test public void testStart_success_shouldNotShowError() throws Exception {
     // Verify
     final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
     baseLceeViewModelViewModel.isError().subscribe(testSubscriber);
@@ -62,7 +62,7 @@ public class BaseLceViewModelTest {
     testSubscriber.assertValues(false); // The false is for loading.
   }
 
-  @Test public void testStar_error_shouldShowError() throws Exception {
+  @Test public void testStart_error_shouldShowError() throws Exception {
     final String expectedMessage = "Expected message";
     when(errorMessageProvider.getErrorMessage(any(Throwable.class))).thenReturn(expectedMessage);
     // Verify
@@ -73,36 +73,6 @@ public class BaseLceViewModelTest {
     baseLceeViewModelViewModel.start(ERROR_STREAM).subscribe(createNoOpSubscriber());
     errorMessageSubscriber.assertValues(expectedMessage);
     testSubscriber.assertValues(false, true);
-  }
-
-  @Test public void testStar_errorButContentShowing_shouldShowLightError() throws Exception {
-    final String expectedMessage = "Expected message";
-    when(errorMessageProvider.getLightErrorMessage(any(Throwable.class))).thenReturn(
-        expectedMessage);
-    // Verify
-    final TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-    baseLceeViewModelViewModel.lightError().subscribe(testSubscriber);
-    baseLceeViewModelViewModel.showContent();
-    baseLceeViewModelViewModel.start(ERROR_STREAM).subscribe(createNoOpSubscriber());
-    testSubscriber.assertValues(expectedMessage);
-  }
-
-  @Test public void testStar_errorButContentShowing_shouldNotShowError() throws Exception {
-    // Verify
-    final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
-    baseLceeViewModelViewModel.isError().subscribe(testSubscriber);
-    baseLceeViewModelViewModel.showContent();
-    baseLceeViewModelViewModel.start(ERROR_STREAM).subscribe(createNoOpSubscriber());
-    testSubscriber.assertValues(false); // The false when show loading.
-  }
-
-  @Test public void testStar_emptyButContentShowing_shouldShowContent() throws Exception {
-    // Verify
-    final TestSubscriber<Boolean> testSubscriber = new TestSubscriber<>();
-    baseLceeViewModelViewModel.isShowContent().subscribe(testSubscriber);
-    baseLceeViewModelViewModel.showContent();
-    baseLceeViewModelViewModel.start(EMPTY_STREAM).subscribe(createNoOpSubscriber());
-    testSubscriber.assertValues(false, true); // The first false is initial value.
   }
 
   @NonNull private Subscriber<Object> createNoOpSubscriber() {

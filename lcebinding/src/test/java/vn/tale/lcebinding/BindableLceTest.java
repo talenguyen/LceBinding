@@ -61,13 +61,4 @@ public class BindableLceTest {
     Assert.assertFalse(bindableLceeViewModel.getError().get());
   }
 
-  @Test public void testErrorField_showErrorWhenContentIsShowing_shouldShowLightError()
-      throws Exception {
-    bindableLceeViewModel.showContent();
-    final String expectedLightErrorMessage = "Expected light error";
-    Mockito.when(errorMessageProvider.getLightErrorMessage(Mockito.any(Throwable.class)))
-        .thenReturn(expectedLightErrorMessage);
-    bindableLceeViewModel.showError(new RuntimeException());
-    Assert.assertEquals(expectedLightErrorMessage, bindableLceeViewModel.getLightError().get());
-  }
 }
