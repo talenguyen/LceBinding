@@ -5,7 +5,8 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 
 /**
- * Created by Giang Nguyen on 4/4/16.
+ * Implementation of {@link Observable.Transformer} to bind an observable to Lce
+ * @param <T> data type.
  */
 public class LceBindingTransformer<T> implements Observable.Transformer<T, T> {
 
