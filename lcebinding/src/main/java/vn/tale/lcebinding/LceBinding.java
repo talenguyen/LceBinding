@@ -11,13 +11,8 @@ import rx.subscriptions.CompositeSubscription;
 public class LceBinding {
 
   private CompositeSubscription subscriptions;
-  private LoadingContentError lce;
 
-  public LceBinding(LoadingContentError lce) {
-    this.lce = lce;
-  }
-
-  public void bind(ShowHideView loadingView,
+  public void bind(LoadingContentError lce, ShowHideView loadingView,
       ShowHideView contentView,
       final ErrorView errorView) {
 
