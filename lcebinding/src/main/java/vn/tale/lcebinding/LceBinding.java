@@ -3,7 +3,6 @@ package vn.tale.lcebinding;
 import android.support.annotation.NonNull;
 import rx.Observable;
 import rx.Subscription;
-import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
@@ -46,36 +45,12 @@ public class LceBinding {
   }
 
   public void unbind() {
-    if (subscriptions != null) {
-      subscriptions.unsubscribe();
-      subscriptions.clear();
-      subscriptions = null;
+    if (subscriptions == null) {
+      return;
     }
-  }
-
-  public <T> Observable<T> createLceStream(Observable<T> target, ThreadScheduler threadScheduler) {
-    return target.subscribeOn(threadScheduler.subscribeOn())
-        .observeOn(threadScheduler.observeOn())
-        .doOnSubscribe(new Action0() {
-          @Override public void call() {
-            lce.showLoading();
-          }
-        })
-        .doOnNext(new Action1<T>() {
-          @Override public void call(T ts) {
-            lce.showContent();
-          }
-        })
-        .doOnError(new Action1<Throwable>() {
-          @Override public void call(Throwable throwable) {
-            lce.showError(throwable);
-          }
-        })
-        .doOnCompleted(new Action0() {
-          @Override public void call() {
-            lce.hideLoading();
-          }
-        });
+    subscriptions.unsubscribe();
+    subscriptions.clear();
+    subscriptions = null;
   }
 
   private Subscription bindMessage(Observable<String> msgStream, Action1<String> action1) {
