@@ -28,11 +28,11 @@ public class LceBindingTest {
     MockitoAnnotations.initMocks(this);
 
     lce = new LoadingContentError(errorMessageProvider);
-    lceBinding = new LceBinding(lce);
+    lceBinding = new LceBinding();
   }
 
   @Test public void testBindMethod_showHideLoading() throws Exception {
-    lceBinding.bind(loadingView, contentView, errorView);
+    lceBinding.bind(lce, loadingView, contentView, errorView);
 
     lce.showLoading();
     verify(loadingView).show();
@@ -42,7 +42,7 @@ public class LceBindingTest {
   }
 
   @Test public void testBind_showHideContent() throws Exception {
-    lceBinding.bind(loadingView, contentView, errorView);
+    lceBinding.bind(lce, loadingView, contentView, errorView);
 
     lce.showContent();
     verify(contentView).show();
@@ -52,7 +52,7 @@ public class LceBindingTest {
   }
 
   @Test public void testBind_showHideError() throws Exception {
-    lceBinding.bind(loadingView, contentView, errorView);
+    lceBinding.bind(lce, loadingView, contentView, errorView);
 
     String expectedError = "Expected error";
     when(errorMessageProvider.getErrorMessage(any(Throwable.class))).thenReturn(expectedError);
@@ -66,7 +66,7 @@ public class LceBindingTest {
   }
 
   @Test public void testUnbind_shouldNotReceiveLoadingEvent() throws Exception {
-    lceBinding.bind(loadingView, contentView, errorView);
+    lceBinding.bind(lce, loadingView, contentView, errorView);
     lceBinding.unbind();
 
     lce.showLoading();
@@ -77,7 +77,7 @@ public class LceBindingTest {
   }
 
   @Test public void testUnbind_shouldNotReceiveContentEvent() throws Exception {
-    lceBinding.bind(loadingView, contentView, errorView);
+    lceBinding.bind(lce, loadingView, contentView, errorView);
     lceBinding.unbind();
 
     lce.showContent();
@@ -88,7 +88,7 @@ public class LceBindingTest {
   }
 
   @Test public void testUnbind_shouldNotReceiveErrorEvent() throws Exception {
-    lceBinding.bind(loadingView, contentView, errorView);
+    lceBinding.bind(lce, loadingView, contentView, errorView);
     lceBinding.unbind();
 
     lce.showError(new RuntimeException());
@@ -103,7 +103,7 @@ public class LceBindingTest {
   }
 
   @Test public void testUnbind_beforeBind_shouldNotReceiveLoadingEvent() throws Exception {
-    lceBinding.bind(loadingView, contentView, errorView);
+    lceBinding.bind(lce, loadingView, contentView, errorView);
     lceBinding.unbind();
 
     lce.showLoading();
@@ -114,7 +114,7 @@ public class LceBindingTest {
   }
 
   @Test public void testUnbind_beforeBind_shouldNotReceiveContentEvent() throws Exception {
-    lceBinding.bind(loadingView, contentView, errorView);
+    lceBinding.bind(lce, loadingView, contentView, errorView);
     lceBinding.unbind();
 
     lce.showContent();
@@ -125,7 +125,7 @@ public class LceBindingTest {
   }
 
   @Test public void testUnbind_beforeBind_shouldNotReceiveErrorEvent() throws Exception {
-    lceBinding.bind(loadingView, contentView, errorView);
+    lceBinding.bind(lce, loadingView, contentView, errorView);
     lceBinding.unbind();
 
     lce.showError(new RuntimeException());
