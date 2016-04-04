@@ -1,6 +1,5 @@
 package vn.tale.lcebinding;
 
-import android.support.annotation.NonNull;
 import rx.Observable;
 import rx.Subscription;
 import rx.functions.Action1;
@@ -18,9 +17,9 @@ public class LceBinding {
     this.lce = lce;
   }
 
-  public void bind(@NonNull ShowHideView loadingView,
-      @NonNull ShowHideView contentView,
-      @NonNull final ErrorView errorView) {
+  public void bind(ShowHideView loadingView,
+      ShowHideView contentView,
+      final ErrorView errorView) {
 
     subscriptions = new CompositeSubscription();
 
@@ -57,8 +56,8 @@ public class LceBinding {
     return msgStream.subscribe(action1);
   }
 
-  private Subscription bindShowHide(@NonNull Observable<Boolean> showHideStream,
-      @NonNull final ShowHideView showHideView) {
+  private Subscription bindShowHide(Observable<Boolean> showHideStream,
+      final ShowHideView showHideView) {
     return showHideStream.subscribe(new Action1<Boolean>() {
       @Override public void call(Boolean loading) {
         if (loading) {
