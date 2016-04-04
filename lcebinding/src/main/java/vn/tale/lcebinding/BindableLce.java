@@ -19,7 +19,6 @@ public class BindableLce extends LoadingContentError {
   private final ObservableBoolean content = new ObservableBoolean();
   private final ObservableBoolean error = new ObservableBoolean();
   private final ObservableField<String> errorMessage = new ObservableField<>();
-  private final ObservableField<String> lightError = new ObservableField<>();
 
   public BindableLce(ErrorMessageProvider errorMessageProvider) {
     super(errorMessageProvider);
@@ -43,11 +42,6 @@ public class BindableLce extends LoadingContentError {
         BindableLce.this.errorMessage.set(message);
       }
     });
-    lightError().subscribe(new Action1<String>() {
-      @Override public void call(String message) {
-        BindableLce.this.lightError.set(message);
-      }
-    });
   }
 
   public ObservableBoolean getLoading() {
@@ -66,7 +60,4 @@ public class BindableLce extends LoadingContentError {
     return errorMessage;
   }
 
-  public ObservableField<String> getLightError() {
-    return lightError;
-  }
 }

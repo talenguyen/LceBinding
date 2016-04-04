@@ -18,11 +18,4 @@ public interface ErrorMessageProvider {
    */
   String getErrorMessage(Throwable throwable);
 
-  /**
-   * Get the error message to show on a screen
-   *
-   * @param throwable the error
-   * @return message correspond to the exception.
-   */
-  String getLightErrorMessage(Throwable throwable);
 }
