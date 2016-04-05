@@ -8,7 +8,6 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Author giangnguyen. Created on 4/1/16.
  */
-
 public class LceBinding {
 
   private CompositeSubscription subscriptions = null;
