@@ -3,7 +3,9 @@ package vn.tale.lcebinding;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import rx.Observable;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
@@ -133,5 +135,30 @@ public class LceBindingTest {
 
     lce.hideError();
     verify(errorView, never()).hide();
+  }
+
+  @Test public void testBindShowHide_showStream_shouldShow() throws Exception {
+    final ShowHideView showHideView = Mockito.mock(ShowHideView.class);
+    final Observable<Boolean> showStream = Observable.just(true);
+    lceBinding.bindShowHide(showStream, showHideView);
+
+    verify(showHideView).show();
+  }
+
+  @Test public void testBindShowHide_hideStream_shouldHide() throws Exception {
+    final ShowHideView showHideView = Mockito.mock(ShowHideView.class);
+    final Observable<Boolean> hideStream = Observable.just(false);
+    lceBinding.bindShowHide(hideStream, showHideView);
+
+    verify(showHideView).hide();
+  }
+
+  @Test public void testBindErrorMessage_shouldReceiveMessage() throws Exception {
+    final ErrorView errorView = Mockito.mock(ErrorView.class);
+    final String expectedMsg = "Hello";
+    final Observable<String> hideStream = Observable.just(expectedMsg);
+    lceBinding.bindErrorMessage(hideStream, errorView);
+
+    verify(errorView).setError(expectedMsg);
   }
 }

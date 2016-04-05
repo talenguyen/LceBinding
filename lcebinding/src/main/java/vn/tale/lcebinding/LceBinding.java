@@ -8,34 +8,56 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Author giangnguyen. Created on 4/1/16.
  */
+
 public class LceBinding {
 
-  private CompositeSubscription subscriptions;
+  private CompositeSubscription subscriptions = null;
 
   public void bind(LoadingContentError lce, ShowHideView loadingView,
       ShowHideView contentView,
       final ErrorView errorView) {
 
-    subscriptions = new CompositeSubscription();
+    if (subscriptions == null) {
+      subscriptions = new CompositeSubscription();
+    }
 
-    final Subscription loadingSubscription = bindShowHide(lce.isLoading(), loadingView);
-    subscriptions.add(loadingSubscription);
+    bindShowHide(lce.isLoading(), loadingView);
 
-    final Subscription contentSubscription = bindShowHide(lce.isShowContent(), contentView);
-    subscriptions.add(contentSubscription);
+    bindShowHide(lce.isShowContent(), contentView);
 
-    final Subscription errorShowHideSubscription = bindShowHide(lce.isError(),
-        errorView);
-    subscriptions.add(errorShowHideSubscription);
+    bindShowHide(lce.isError(), errorView);
 
-    final Subscription errorMsgSubscription = bindMessage(lce.errorMessage(),
-        new Action1<String>() {
-          @Override public void call(String msg) {
-            errorView.setError(msg);
-          }
-        });
-    subscriptions.add(errorMsgSubscription);
+    bindErrorMessage(lce.errorMessage(), errorView);
 
+  }
+
+  public void bindShowHide(Observable<Boolean> showHideStream, final ShowHideView showHideView) {
+    if (subscriptions == null) {
+      subscriptions = new CompositeSubscription();
+    }
+    final Subscription subscription = showHideStream.subscribe(new Action1<Boolean>() {
+      @Override public void call(Boolean show) {
+        if (show) {
+          showHideView.show();
+        } else {
+          showHideView.hide();
+        }
+      }
+    });
+    subscriptions.add(subscription);
+  }
+
+  public void bindErrorMessage(Observable<String> msgStream, final ErrorView errorView) {
+    if (subscriptions == null) {
+      subscriptions = new CompositeSubscription();
+    }
+    final Subscription subscription = msgStream.subscribe(new Action1<String>() {
+      @Override
+      public void call(String msg) {
+        errorView.setError(msg);
+      }
+    });
+    subscriptions.add(subscription);
   }
 
   public void unbind() {
@@ -47,20 +69,4 @@ public class LceBinding {
     subscriptions = null;
   }
 
-  private Subscription bindMessage(Observable<String> msgStream, Action1<String> action1) {
-    return msgStream.subscribe(action1);
-  }
-
-  private Subscription bindShowHide(Observable<Boolean> showHideStream,
-      final ShowHideView showHideView) {
-    return showHideStream.subscribe(new Action1<Boolean>() {
-      @Override public void call(Boolean loading) {
-        if (loading) {
-          showHideView.show();
-        } else {
-          showHideView.hide();
-        }
-      }
-    });
-  }
 }
