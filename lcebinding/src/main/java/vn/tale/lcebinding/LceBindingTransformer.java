@@ -7,7 +7,9 @@ import rx.functions.Action1;
 /**
  * Implementation of {@link Observable.Transformer} to bind an observable to Lce
  * @param <T> data type.
+ * @deprecated use {@link LceSubscriber} instead
  */
+@Deprecated
 public class LceBindingTransformer<T> implements Observable.Transformer<T, T> {
 
   private LoadingContentError lce;

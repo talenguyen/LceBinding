@@ -1,12 +1,20 @@
 package vn.tale.lcebindingexample;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Func0;
+
 public class MainActivity extends AppCompatActivity {
+
+  private static final String TAG = "MainActivity";
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -19,6 +27,31 @@ public class MainActivity extends AppCompatActivity {
           .add(R.id.fragmentContainer, new FragmentMain())
           .commit();
     }
+
+    Observable.defer(new Func0<Observable<Object>>() {
+      @Override public Observable<Object> call() {
+        SystemClock.sleep(3000);
+        return Observable.just(null);
+      }
+    })
+        .subscribe(new Subscriber<Object>() {
+          @Override public void onCompleted() {
+            Log.d(TAG, "onCompleted: ");
+          }
+
+          @Override public void onError(Throwable e) {
+            Log.e(TAG, "onError: ", e);
+          }
+
+          @Override public void onNext(Object aLong) {
+            Log.d(TAG, "onNext() called with: " + "aLong = [" + aLong + "]");
+          }
+
+          @Override public void onStart() {
+            super.onStart();
+            Log.d(TAG, "onStart: ");
+          }
+        });
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
