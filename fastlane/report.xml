@@ -3,62 +3,47 @@
   <testsuite name="fastlane.lanes">
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000693">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000556">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000296">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000346">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: git describe --tags `git rev-list --tags --max-count=1`" time="0.022872">
+      <testcase classname="fastlane.lanes" name="2: git tag | grep 'v[0-9]*.[0-9]*.[0-9]*[0-9]$' | tail -n1" time="0.013321">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: git describe --tags `git rev-list --tags --max-count=1`" time="0.023962">
+      <testcase classname="fastlane.lanes" name="3: git tag | grep 'v[0-9].*-rc[0-9]*' | tail -n1" time="0.009859">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: git describe --tags `git rev-list --tags --max-count=1`" time="0.031169">
+      <testcase classname="fastlane.lanes" name="4: git_branch" time="0.010423">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: git_branch" time="0.00999">
+      <testcase classname="fastlane.lanes" name="5: git_branch" time="0.014591">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: git describe --tags `git rev-list --tags --max-count=1`" time="0.021488">
+      <testcase classname="fastlane.lanes" name="6: git_branch" time="0.010509">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="7: git_branch" time="0.016181">
+      <testcase classname="fastlane.lanes" name="7: git tag | grep 'v[0-9].*-rc[0-9]*' | tail -n1" time="0.009797">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="8: git_branch" time="0.015177">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="9: git describe --tags `git rev-list --tags --max-count=1`" time="0.023256">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="10: git describe --tags `git rev-list --tags --max-count=1`" time="0.021036">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="11: git_branch" time="0.012312">
+      <testcase classname="fastlane.lanes" name="8: git_branch" time="0.039691">
         
       </testcase>
     

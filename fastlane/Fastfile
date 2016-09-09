@@ -49,7 +49,18 @@ platform :android do
   desc "Deploy a new version to the Google Play"
   lane :release do
     test
-    if rc?
+    production_tag = latest_production_tag
+    rc_tag = latest_rc_tag
+    branch = git_branch
+    if production?(production_tag)
+      gradle(
+        task: 'assemble',
+        flavor: 'Prod',
+        build_type: 'Release'
+      )
+      deploy(store: true)
+    elsif rc?(rc_tag)
+      build_version = parse_version(rc_tag)
       badge(
         shield: "#{build_version}-#{build_number}-orange",
         no_badge: true,
@@ -61,14 +72,8 @@ platform :android do
         build_type: 'Release'
       )
       deploy
-    elsif production?
-      gradle(
-        task: 'assemble',
-        flavor: 'Prod',
-        build_type: 'Release'
-      )
-      deploy(store: true)
-    else
+    elsif dev?(branch)
+      build_version = parse_version(branch)
       badge(
         shield: "#{build_version}-#{build_number}-orange",
         no_badge: true,
@@ -85,10 +90,19 @@ platform :android do
 
 
   lane :build_type do
-    puts "latest_tag_name=#{latest_tag_name}"
-    puts "rc? #{rc?}"
-    puts "dev? #{dev?}"
-    puts "production? #{production?}"
+    production_tag = latest_production_tag
+    rc_tag = latest_rc_tag
+    branch = git_branch
+    if production?(production_tag)
+      build_version = parse_version(production_tag)
+      puts "build production #{build_version}"
+    elsif rc?(rc_tag)
+      build_version = parse_version(rc_tag)
+      puts "build rc #{build_version}"
+    elsif dev?(branch)
+      build_version = parse_version(branch)
+      puts "build dev #{build_version}"
+    end
   end
   # You can define as many lanes as you want
   after_all do |lane|
@@ -112,35 +126,25 @@ platform :android do
     !ENV['BUILD_NUMBER'].nil?
   end
 
-  def production?
-    tag_without_rc = latest_tag_name =~ /v([0-9]+\.)+[0-9]+-release/
-    same_version_with_dev = parse_version(latest_tag_name) == parse_version(git_branch)
-    puts "tag_without_rc: #{tag_without_rc} - same_version_with_dev: #{same_version_with_dev}"
-    return tag_without_rc && same_version_with_dev
+  def production?(production_tag)
+    same_version_with_dev = parse_version(production_tag) == parse_version(git_branch)
+    puts "production_tag: #{production_tag} - same_version_with_dev: #{same_version_with_dev}"
+    return same_version_with_dev
   end
 
-  def rc?
-    tag_rc = latest_tag_name =~ /v([0-9]+\.)+[0-9]+-rc[0-9]+/
-    same_version_with_dev = parse_version(latest_tag_name) == parse_version(git_branch)
-    puts "tag_rc: #{tag_rc} - same_version_with_dev: #{same_version_with_dev}"
-    puts "version: #{parse_version(latest_tag_name)} == #{parse_version(git_branch)}"
-    return tag_rc && same_version_with_dev
+  def rc?(rc_tag)
+    same_version_with_dev = parse_version(rc_tag) == parse_version(git_branch)
+    puts "rc_tag: #{rc_tag} - same_version_with_dev: #{same_version_with_dev}"
+    puts "version: #{parse_version(latest_rc_tag)} == #{parse_version(git_branch)}"
+    return same_version_with_dev
   end
 
-  def dev?
-    git_branch =~ /dev\/([0-9]+\.)+[0-9]+/
+  def dev?(branch)
+    branch =~ /dev\/([0-9]+\.)+[0-9]+/
   end
 
   def build_number
     ENV['BUILD_NUMBER'] || number_of_commits
-  end
-
-  def build_version
-    if rc? || production?
-      return parse_version(latest_tag_name)
-    else
-      return parse_version(git_branch)
-    end
   end
 
   def parse_version(name)
@@ -149,6 +153,14 @@ platform :android do
 
   def latest_tag_name
     return sh("git describe --tags `git rev-list --tags --max-count=1`")
+  end
+
+  def latest_rc_tag
+    return sh("git tag | grep 'v[0-9].*-rc[0-9]*' | tail -n1")
+  end
+
+  def latest_production_tag
+    return sh("git tag | grep 'v[0-9]*.[0-9]*.[0-9]*[0-9]$' | tail -n1")
   end
 
 end
