@@ -116,7 +116,7 @@ platform :android do
     tag_rc = last_git_tag =~ /v([0-9]+\.)+[0-9]+-rc[0-9]+/
     same_version_with_dev = parse_version(last_git_tag) == parse_version(git_branch)
     puts "tag_rc: #{tag_rc} - same_version_with_dev: #{same_version_with_dev}"
-    puts "version: #{parse_version(last_git_tag)}"
+    puts "version: #{parse_version(last_git_tag)} == #{parse_version(git_branch)}"
     return tag_rc && same_version_with_dev
   end
 
