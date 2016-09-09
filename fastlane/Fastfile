@@ -112,7 +112,7 @@ platform :android do
   end
 
   def production?
-    tag_without_rc = last_git_tag =~ /v([0-9]+\.)+[0-9]+-final/
+    tag_without_rc = last_git_tag =~ /v([0-9]+\.)+[0-9]+-release/
     same_version_with_dev = parse_version(last_git_tag) == parse_version(git_branch)
     puts "tag_without_rc: #{tag_without_rc} - same_version_with_dev: #{same_version_with_dev}"
     return tag_without_rc && same_version_with_dev
