@@ -7,7 +7,6 @@ android {
   buildToolsVersion ext.buildToolsVersion
 
   defaultConfig {
-    applicationId ext.applicationId
     minSdkVersion ext.minSdkVersion
     targetSdkVersion ext.targetSdkVersion
     versionCode ext.versionCode
@@ -19,13 +18,24 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+  productFlavors {
+    dev {
+      applicationId "vn.tale.lcebindingexample.dev"
+      resValue "string", "app_name", "LceBinding Dev"
+    }
+
+    prod {
+      applicationId "vn.tale.lcebindingexample"
+      resValue "string", "app_name", "LceBinding"
+    }
+  }
 }
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
   testCompile 'junit:junit:4.12'
-  compile 'com.android.support:appcompat-v7:23.1.1'
-  compile 'com.android.support:design:23.1.1'
+  compile 'com.android.support:appcompat-v7:24.2.0'
+  compile 'com.android.support:design:24.2.0'
   compile 'io.reactivex:rxandroid:1.1.0'
   // Because RxAndroid releases are few and far between, it is recommended you also
   // explicitly depend on RxJava's latest version for bug fixes and new features.
