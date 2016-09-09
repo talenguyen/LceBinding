@@ -34,4 +34,3 @@ proguard/
 /build
 /captures
 .idea
-Gemfile.lock
