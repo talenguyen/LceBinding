@@ -83,6 +83,12 @@ platform :android do
     end
   end
 
+
+  lane :build_type do
+    puts "rc? #{rc?}"
+    puts "dev? #{dev?}"
+    puts "production? #{production?}"
+  end
   # You can define as many lanes as you want
   after_all do |lane|
     # This block is called, only if the executed lane was successful
