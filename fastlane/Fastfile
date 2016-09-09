@@ -85,6 +85,7 @@ platform :android do
 
 
   lane :build_type do
+    puts "last_git_tag=#{last_git_tag}"
     puts "rc? #{rc?}"
     puts "dev? #{dev?}"
     puts "production? #{production?}"
