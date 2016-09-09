@@ -3,122 +3,57 @@
   <testsuite name="fastlane.lanes">
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000479">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000425">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.00028">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000203">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: Switch to android test lane" time="0.000266">
+      <testcase classname="fastlane.lanes" name="2: last_git_tag" time="0.018895">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: gradle" time="2.882933">
+      <testcase classname="fastlane.lanes" name="3: last_git_tag" time="0.020074">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: gradle" time="1.888642">
+      <testcase classname="fastlane.lanes" name="4: git_branch" time="0.010001">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: last_git_tag" time="0.047163">
+      <testcase classname="fastlane.lanes" name="5: last_git_tag" time="0.020037">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: last_git_tag" time="0.017178">
+      <testcase classname="fastlane.lanes" name="6: git_branch" time="0.008978">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="7: git_branch" time="0.009413">
+      <testcase classname="fastlane.lanes" name="7: git_branch" time="0.011284">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="8: last_git_tag" time="0.019987">
+      <testcase classname="fastlane.lanes" name="8: last_git_tag" time="0.018272">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="9: last_git_tag" time="0.022705">
+      <testcase classname="fastlane.lanes" name="9: last_git_tag" time="0.021144">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="10: last_git_tag" time="0.020386">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="11: git_branch" time="0.01323">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="12: last_git_tag" time="0.01938">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="13: last_git_tag" time="0.014478">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="14: git_branch" time="0.00928">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="15: last_git_tag" time="0.015206">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="16: last_git_tag" time="0.01707">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="17: last_git_tag" time="0.017795">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="18: git_branch" time="0.008918">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="19: git_branch" time="0.008206">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="20: number_of_commits" time="0.026898">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="21: badge" time="2.946484">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="22: gradle" time="6.054784">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="23: Switch to android deploy lane" time="0.000316">
+      <testcase classname="fastlane.lanes" name="10: git_branch" time="0.010023">
         
       </testcase>
     
