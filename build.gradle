@@ -38,7 +38,7 @@ ext.preDexLibs = !project.hasProperty('disablePreDex')
 ext {
   applicationId = "vn.tale.lcebindingexample"
   compileSdkVersion = 23
-  buildToolsVersion = "23.0.2"
+  buildToolsVersion = "23.0.3"
   minSdkVersion = 15
   targetSdkVersion = 23
   versionCode = 1
