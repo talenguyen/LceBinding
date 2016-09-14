@@ -3,47 +3,22 @@
   <testsuite name="fastlane.lanes">
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000556">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000513">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000346">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000293">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: git tag | grep 'v[0-9]*.[0-9]*.[0-9]*[0-9]$' | tail -n1" time="0.013321">
+      <testcase classname="fastlane.lanes" name="2: gradle" time="16.357581">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: git tag | grep 'v[0-9].*-rc[0-9]*' | tail -n1" time="0.009859">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="4: git_branch" time="0.010423">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="5: git_branch" time="0.014591">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="6: git_branch" time="0.010509">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="7: git tag | grep 'v[0-9].*-rc[0-9]*' | tail -n1" time="0.009797">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="8: git_branch" time="0.039691">
+      <testcase classname="fastlane.lanes" name="3: gradle" time="3.711561">
         
       </testcase>
     
