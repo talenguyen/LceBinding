@@ -18,10 +18,13 @@ default_platform :android
 platform :android do
   before_all do
     ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+    ENV["COVERALLS_REPO_TOKEN"] = "my coveralls"
   end
 
   desc "Runs all the tests"
   lane :test do
+    puts "Coveralls: #{ENV["COVERALLS_REPO_TOKEN"]}"
+    puts "Jenkins: #{ENV["JENKINS_URL"]}"
     gradle(task: "jacocoTestReport")
     gradle(task: "coveralls")
   end

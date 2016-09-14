@@ -3,22 +3,22 @@
   <testsuite name="fastlane.lanes">
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000513">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000576">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000293">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000237">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: gradle" time="16.357581">
+      <testcase classname="fastlane.lanes" name="2: gradle" time="2.616841">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: gradle" time="3.711561">
+      <testcase classname="fastlane.lanes" name="3: gradle" time="4.844068">
         
       </testcase>
     
