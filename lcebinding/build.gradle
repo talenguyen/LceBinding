@@ -1,11 +1,19 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.github.kt3k.coveralls'
 apply from: '../config/andcoco.gradle'
 apply from: '../config/quality.gradle'
 
 group = 'com.github.talenguyen'
 
 def ext = rootProject.ext;
+
+jacocoTestReport {
+  reports {
+    xml.enabled = true // coveralls plugin depends on xml format report
+    html.enabled = true
+  }
+}
 
 android {
   compileSdkVersion ext.compileSdkVersion
